@@ -3,7 +3,7 @@ import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, } from 'graphq
 import AddressType from './Address';
 import AddressController from '../resolvers/Address';
 
-const UserType = new GraphQLObjectType({
+export default new GraphQLObjectType({
     name: 'User',
     description: 'User',
     fields: () => ({
@@ -29,5 +29,3 @@ const UserType = new GraphQLObjectType({
         },
     })
 });
-
-export default UserType;

@@ -1,11 +1,9 @@
 import { GraphQLObjectType } from 'graphql';
 import addUser from './addUser';
 
-const mutationType = new GraphQLObjectType({
+export default new GraphQLObjectType({
     name: 'Mutation',
     fields: {
-        addUser: addUser(),
+        addUser,
     }
 });
-
-export default mutationType;

@@ -1,7 +1,7 @@
 'use strict';
 import { GraphQLInputObjectType, GraphQLString, GraphQLID, GraphQLInt, } from 'graphql';
 
-const InputUserType = new GraphQLInputObjectType({
+export default new GraphQLInputObjectType({
     name: 'InputUser',
     description: 'Input User',
     fields: () => ({
@@ -16,5 +16,3 @@ const InputUserType = new GraphQLInputObjectType({
         }
     })
 });
-
-export default InputUserType;
