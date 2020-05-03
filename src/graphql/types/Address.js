@@ -30,7 +30,7 @@ const AddressType = new GraphQLObjectType({
         users: {
             type: new GraphQLList(UserType),
             resolve: async (parent, args) => {
-                const ret = await UserController.index({ addressId: parent.id });
+                const ret = await UserController.get({ addressId: parent.id });
                 return ret;
             }
         },

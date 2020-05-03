@@ -18,7 +18,7 @@ const ret = [
 ];
 
 const AddressController = {
-    index: (args) => {
+    get: (args) => {
         const filteredRet = ret.filter(r => args.id ? r.id === args.id : true);
         return Promise.resolve(filteredRet)
     }

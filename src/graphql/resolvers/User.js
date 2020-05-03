@@ -22,9 +22,56 @@ const users = [
 ];
 
 const UserController = {
-    index: (args) => {
-        const filteredRet = users.filter(r => args.addressId ? r.homeAddressId === args.addressId : true);
+    get: (args) => {
+        let filteredRet = [];
+        if (args.id) {
+            filteredRet = users.filter(r => r.id === args.id)
+        } else if (args.homeAddressId) {
+            filteredRet = users.filter(r => r.homeAddressId === args.addressId);
+        } else {
+            filteredRet = users;
+        }
+
         return Promise.resolve(filteredRet)
+    },
+    add: async (source, args) => {
+        if (!args || !args.user) throw 'User input not found';
+
+        const { firstName, lastName } = args.user;
+        const newUser = {
+            id: `u${Date.now()}`,
+            firstName,
+            lastName,
+            homeAddressId: 'a1' // TODO: Fix
+        }
+        users.push(newUser);
+        return Promise.resolve(newUser);
+    },
+    update: async (source, args) => {
+        if (!args || !args.user) throw 'User input not found';
+
+        const { id, firstName, lastName } = args.user;
+        if (!id) throw 'id requried for delete';
+        const found = undefined;
+
+        users.forEach(u => {
+            if (u.id === id) {
+                u.firstName = firstName;
+                u.lastName = lastName;
+                // TODO: Address
+                found = u;
+            }
+        });
+        if (!found) throw `User with id: '${id}' not found`;
+        return Promise.resolve(found);
+    },
+    delete: async (source, args) => {
+        const id = args.id;
+        if (!id) throw 'id requried for delete';
+        const toDel = await this.get({ id });
+        if (!toDel.length) throw `User with id:'${id}' not found`;
+
+        users = users.filter(u => u.id !== id);
     }
 }
 export default UserController;

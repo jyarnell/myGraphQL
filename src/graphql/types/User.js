@@ -23,7 +23,7 @@ const UserType = new GraphQLObjectType({
             type: AddressType,
             description: 'The users\' home address',
             resolve: async (parent, args) => {
-                const ret = await AddressController.index({ id: parent.homeAddressId });
+                const ret = await AddressController.get({ id: parent.homeAddressId });
                 return ret.length ? ret[0] : undefined;
             }
         },
