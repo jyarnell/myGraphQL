@@ -1,5 +1,6 @@
 'use strict';
 import { GraphQLInputObjectType, GraphQLString, GraphQLID, GraphQLInt, } from 'graphql';
+import Address from './inputAddressType';
 
 export default new GraphQLInputObjectType({
     name: 'InputUser',
@@ -13,6 +14,7 @@ export default new GraphQLInputObjectType({
         },
         lastName: {
             type: GraphQLString
-        }
+        },
+        address: { type: Address }
     })
 });

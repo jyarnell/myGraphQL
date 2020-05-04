@@ -1,7 +1,7 @@
 'use strict';
 import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, } from 'graphql';
 import UserType from './User';
-import UserController from '../resolvers/User';
+import UserResolver from '../resolvers/User';
 
 export default new GraphQLObjectType({
     name: 'Address',
@@ -30,7 +30,7 @@ export default new GraphQLObjectType({
         users: {
             type: new GraphQLList(UserType),
             resolve: async (parent, args) => {
-                const ret = await UserController.get({ addressId: parent.id });
+                const ret = await UserResolver.get({ addressId: parent.id });
                 return ret;
             }
         },

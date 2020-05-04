@@ -1,4 +1,5 @@
-'use strict';
+'use strict'
+import AddressResolver from './Address';
 
 const users = [
     {
@@ -26,7 +27,7 @@ const UserController = {
         let filteredRet = [];
         if (args.id) {
             filteredRet = users.filter(r => r.id === args.id)
-        } else if (args.homeAddressId) {
+        } else if (args.addressId) {
             filteredRet = users.filter(r => r.homeAddressId === args.addressId);
         } else {
             filteredRet = users;
@@ -37,12 +38,14 @@ const UserController = {
     add: async (source, args) => {
         if (!args || !args.user) throw 'User input not found';
 
-        const { firstName, lastName } = args.user;
+        const { firstName, lastName, address } = args.user;
+        const addr = AddressResolver.upsert({ address });
+
         const newUser = {
             id: `u${Date.now()}`,
             firstName,
             lastName,
-            homeAddressId: 'a1' // TODO: Fix
+            homeAddressId: addr.id
         }
         users.push(newUser);
         return Promise.resolve(newUser);
